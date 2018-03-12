@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var path = require('path');
 var models = require('./models');
+var routes=require('./routes');
+
 
 var route = models.Page.urlTitle;
 app.use(morgan('dev'));
@@ -13,9 +15,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '/public')));
-//db
-// get [page.urlTitle]() {return 'wiki' + page.urlTitle ;}
-
+app.use(routes);
 
 //syncing/integrating tables w/app + server
 models.db.sync({force:true})
